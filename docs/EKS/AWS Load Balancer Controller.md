@@ -87,3 +87,18 @@ spec:
       port: 80
       targetPort: 80
 ```
+### TargetGroupBinding
+``` yaml
+apiVersion: elbv2.k8s.aws/v1beta1
+kind: TargetGroupBinding
+metadata:
+  name: skills-tgb
+spec:
+  nodeSelector:
+    matchLabels:
+      node: app
+  serviceRef:
+    name: skills-service
+    port: 80
+  targetGroupARN: $TARGET_ARN
+```

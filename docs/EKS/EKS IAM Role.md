@@ -1,7 +1,6 @@
 # EKS IAM Role
 ## Cluster
-``` bash
-cat <<EOF > cluster-trust-policy.json
+``` json title="cluster-trust-policy.json"
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -14,8 +13,8 @@ cat <<EOF > cluster-trust-policy.json
     }
   ]
 }
-EOF
-
+```
+``` bash
 aws iam create-role \
   --role-name eksClusterRole \
   --assume-role-policy-document file://cluster-trust-policy.json
@@ -25,8 +24,7 @@ aws iam attach-role-policy \
   --role-name eksClusterRole
 ```
 ## Node
-``` bash
-cat <<EOF > node-role-trust-relationship.json
+``` json title="node-role-trust-relationship.json"
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -38,9 +36,9 @@ cat <<EOF > node-role-trust-relationship.json
       "Action": "sts:AssumeRole"
     }
   ]
-}
-EOF
-
+} 
+```
+``` bash
 aws iam create-role \
   --role-name AmazonEKSNodeRole \
   --assume-role-policy-document file://node-role-trust-relationship.json
@@ -56,8 +54,7 @@ aws iam attach-role-policy \
   --role-name AmazonEKSNodeRole
 ```
 ## Fargate
-``` bash
-cat <<EOF > pod-execution-role-trust-policy.json
+``` json
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -75,8 +72,8 @@ cat <<EOF > pod-execution-role-trust-policy.json
     }
   ]
 }
-EOF
-
+```
+``` bash
 aws iam create-role \
   --role-name AmazonEKSFargatePodExecutionRole \
   --assume-role-policy-document file://pod-execution-role-trust-policy.json

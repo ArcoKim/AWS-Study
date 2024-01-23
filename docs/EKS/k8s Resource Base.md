@@ -19,7 +19,6 @@ kind: Deployment
 metadata:
   name: skills-deployment
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: skills
@@ -38,9 +37,6 @@ spec:
       containers:
       - name: nginx
         image: nginx:1.14.2
-        envFrom:
-        - secretRef:
-            name: mysecret
         resources:
           requests:
             cpu: 500m
