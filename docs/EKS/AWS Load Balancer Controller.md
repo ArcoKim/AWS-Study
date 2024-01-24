@@ -43,6 +43,7 @@ metadata:
     alb.ingress.kubernetes.io/subnets: skills-public-a, skills-public-c
     alb.ingress.kubernetes.io/target-node-labels: node=app
     alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/security-groups: alb-sg
     alb.ingress.kubernetes.io/healthcheck-path: /health
     alb.ingress.kubernetes.io/actions.response-403: >
       {"type":"fixed-response","fixedResponseConfig":{"contentType":"text/plain","statusCode":"403","messageBody":"403 Forbidden"}}

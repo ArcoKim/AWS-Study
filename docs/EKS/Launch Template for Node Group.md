@@ -16,8 +16,7 @@
             "VolumeType":"gp2",
             "DeleteOnTermination":true
         }
-    }],
-    "MetadataOptions": 
+    }]
 }
 ```
 ``` bash

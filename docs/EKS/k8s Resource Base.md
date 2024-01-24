@@ -70,3 +70,14 @@ spec:
       port: 80
       targetPort: 8080
 ```
+## Secret
+``` yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-basic-auth
+type: Opaque
+stringData:
+  username: admin
+  password: t0p-Secret
+```

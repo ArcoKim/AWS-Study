@@ -10,11 +10,11 @@ sudo dnf install -y mariadb105
 sudo yum install -y mariadb
 ```
 ## Connect
-Please note that you need to set the ENDPOINT_URL and USER_NAME variables.
+Please note that you need to set the ENDPOINT_URL and USER_NAME(admin) variables.
 ``` bash
 mysql -h $ENDPOINT_URL -P 3306 -u $USER_NAME -p
 ```
-## Database
+## Database Example
 ``` sql
 CREATE DATABASE demo;
 USE demo;
