@@ -1,4 +1,8 @@
 site_name: AWS Study
+repo_url: https://github.com/ArcoKim/AWS-Study
+repo_name: ArcoKim/AWS-Study
+edit_uri: edit/main/docs/
+
 theme:
   name: material
   features:
@@ -32,6 +36,8 @@ theme:
         name: Switch to light mode    
       primary: black
       accent: indigo
+  icon:
+    repo: fontawesome/brands/github
 
 extra:
   social:
@@ -41,6 +47,9 @@ extra:
       link: https://arcozz.tistory.com
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/kimjeongtae
+  analytics:
+    provider: google
+    property: G-6QVESLV4K7
 
 markdown_extensions:
   - pymdownx.highlight:
