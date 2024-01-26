@@ -36,7 +36,7 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: skills-ingress
+  name: skills
   annotations:
     alb.ingress.kubernetes.io/load-balancer-name: skills-alb
     alb.ingress.kubernetes.io/target-type: instance
@@ -72,7 +72,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: skills-svc
+  name: skills
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-name: skills-nlb
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
@@ -93,7 +93,7 @@ spec:
 apiVersion: elbv2.k8s.aws/v1beta1
 kind: TargetGroupBinding
 metadata:
-  name: skills-tgb
+  name: skills
 spec:
   nodeSelector:
     matchLabels:

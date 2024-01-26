@@ -9,7 +9,7 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: skills-hpa
+  name: skills
 spec:
   scaleTargetRef:
     apiVersion: apps/v1

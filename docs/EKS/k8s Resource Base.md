@@ -17,7 +17,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: skills-deployment
+  name: skills
 spec:
   selector:
     matchLabels:
@@ -60,7 +60,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: skills-service
+  name: skills
 spec:
   type: NodePort
   selector:
