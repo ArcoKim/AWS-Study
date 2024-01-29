@@ -28,6 +28,21 @@
 	}]
 }
 ```
+### Amazon OpenSearch Service
+``` json title="iam_policy.json"
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": [
+			  "es:ESHttp*"
+			],
+			"Resource": "*"
+		}
+	]
+}
+```
 ### Command
 ```
 aws iam create-policy \
@@ -73,16 +88,15 @@ kinesis:
   # timeKey:
   # timeKeyFormat:
 
-opensearch:
+elasticsearch:
   enabled: false
-  host: search-wsi-opensearch-abcdefg.ap-northeast-2.es.amazonaws.com
+  host: "search-opensearch-service-tfsdxognidggejslyavvx5nnde.ap-northeast-2.es.amazonaws.com"
   awsRegion: "ap-northeast-2"
   tls: "On"
-  awsAuth: "Off"
-  Trace_Error: "On"
-  httpUser: admin
-  httpPasswd: Open1234!
-  index: "aws-fluent-bit"
+  awsAuth: "On"
+  suppressTypeName: "On"
+  extraOutputs: |
+    Index    aws-fluent-bit
 ```
 ``` bash
 helm repo add eks https://aws.github.io/eks-charts

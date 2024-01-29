@@ -95,9 +95,9 @@ mv /tmp/eksctl /usr/local/bin
 ## Connect to EKS Cluster
 ### Set frequently used environment variables
 ```bash
-echo "CLUSTER_NAME=$(eksctl get clusters -o json | jq -r '.[0].Name')" >> ~/.bashrc
-echo "AWS_DEFAULT_REGION=ap-northeast-2" >> ~/.bashrc
-echo "AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> ~/.bashrc
+echo "export CLUSTER_NAME=$(eksctl get clusters -o json | jq -r '.[0].Name')" >> ~/.bashrc
+echo "export AWS_DEFAULT_REGION=ap-northeast-2" >> ~/.bashrc
+echo "export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> ~/.bashrc
 source ~/.bashrc
 ```
 ### Update Kubeconfig
