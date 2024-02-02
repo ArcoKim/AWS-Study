@@ -82,7 +82,7 @@ echo $SERVICE_ACCOUNT_IAM_AMP_INGEST_ROLE_ARN
 
 eksctl utils associate-iam-oidc-provider --cluster $CLUSTER_NAME --approve
 ```
-## Install Prometheus with Helm
+## Install with Helm
 Please note that you need to set the WORKSPACE_ID variable.
 ``` yaml title="values.yaml"
 serviceAccounts:
@@ -99,6 +99,8 @@ server:
         max_samples_per_send: 1000
         max_shards: 200
         capacity: 2500
+  service:
+    type: NodePort
 ```
 ``` bash
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts

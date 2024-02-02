@@ -14,7 +14,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: skills-deployment
+    name: skills
   minReplicas: 2
   maxReplicas: 20
   metrics:

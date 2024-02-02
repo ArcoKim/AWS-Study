@@ -22,7 +22,7 @@ kubectl set env daemonset aws-node -n kube-system ANNOTATE_POD_IP=true
 CALICO_POD_NAME=$(kubectl get pods -n calico-system -o name | grep calico-kube-controllers- | cut -d '/' -f 2)
 kubectl delete pod $CALICO_POD_NAME -n calico-system
 
-CALICO_POD_NAME=$(kubectl get pods -n calico-system -o name | grep calico-kube-controllers- | cut -d '/' -f 2
+CALICO_POD_NAME=$(kubectl get pods -n calico-system -o name | grep calico-kube-controllers- | cut -d '/' -f 2)
 kubectl describe pod $CALICO_POD_NAME -n calico-system | grep vpc.amazonaws.com/pod-ips
 ```
 ## Resource

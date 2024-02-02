@@ -56,7 +56,7 @@ spec:
             pathType: Exact
             backend:
               service:
-                name: skills-service
+                name: skills
                 port:
                   number: 80
           - path: /
