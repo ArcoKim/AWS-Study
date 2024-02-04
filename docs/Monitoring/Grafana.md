@@ -16,3 +16,11 @@ helm repo update
 
 helm install grafana grafana/grafana -n monitoring -f values.yaml
 ```
+## Grafana Dashboard Examples (Using Prometheus)
+|Title|Import|
+|---|---|
+|Kubernetes cluster monitoring (via Prometheus)|3119|
+|Kubernetes Pods Monitoring|6417|
+|Kubernetes Deployment Statefulset Daemonset metrics|8588|
+|Kubernetes Cluster|7249|
+|Kubernetes All-in-one Cluster Monitoring KR|13770|
