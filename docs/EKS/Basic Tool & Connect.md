@@ -1,11 +1,7 @@
 # Basic Tool & Connect
 ## Install AWS CLI V2
 ``` bash
-yum update -y
-yum remove -y awscli
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-./aws/install
+pip3 install awscli --upgrade
 ```
 ## Install Docker
 Docker is responsible for pushing images to ECR.
@@ -72,10 +68,7 @@ Please note that the HOME path must be set to /home/ec2-user.
 ``` bash
 #!/bin/bash
 yum update -y
-yum remove -y awscli
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-./aws/install
+pip3 install awscli --upgrade
 yum install -y docker
 systemctl start docker
 systemctl enable docker
