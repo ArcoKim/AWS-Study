@@ -1,5 +1,6 @@
 # Task Definition
 ## Fargate
+### For VirtualNode
 ``` json
 {
     "containerDefinitions": [
@@ -21,8 +22,8 @@
             "essential": true,
             "environment": [
                 {
-                    "name": "APPMESH_VIRTUAL_NODE_NAME",
-                    "value": "mesh/yelb/virtualNode/yelb-appserver"
+                    "name": "APPMESH_RESOURCE_ARN",
+                    "value": "arn:aws:appmesh:ap-northeast-2:073813292468:mesh/yelb/virtualNode/yelb-appserver"
                 }
             ],
             "user": "1337",
@@ -70,4 +71,41 @@
         ]
     }
 }
+```
+### For VirtualGateway
+``` json
+{
+    "containerDefinitions": [
+        {
+            "name": "envoy",
+            "image": "public.ecr.aws/appmesh/aws-appmesh-envoy:v1.27.2.0-prod",
+            "memory": 512,
+            "portMappings": [
+                {
+                    "name": "envoy-80-tcp",
+                    "containerPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "APPMESH_RESOURCE_ARN",
+                    "value": "arn:aws:appmesh:ap-northeast-2:073813292468:mesh/yelb/virtualGateway/yelb-gateway"
+                }
+            ],
+            "healthCheck": {
+                "command": [
+                    "CMD-SHELL",
+                    "curl -s http://localhost:9901/server_info | grep state | grep -q LIVE"
+                ],
+                "interval": 5,
+                "timeout": 2,
+                "retries": 3,
+                "startPeriod": 10
+            }
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::073813292468:role/envoy-access-role"
+} 
 ```
