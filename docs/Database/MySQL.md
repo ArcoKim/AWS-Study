@@ -35,3 +35,9 @@ SELECT * FROM member;
 UPDATE member SET password = 'pw5678' WHERE user_id = 'admin';
 DELETE FROM member WHERE user_id = 'admin';
 ```
+## New User
+``` sql
+CREATE USER 'admin'@'%' IDENTIFIED BY 'Mysql1234!';
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
