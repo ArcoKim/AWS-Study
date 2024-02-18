@@ -1,4 +1,8 @@
 site_name: AWS Study
+site_url: https://arcokim.github.io/AWS-Study/
+site_description: ArcoKim's AWS Study Notes
+site_author: ArcoKim
+
 repo_url: https://github.com/ArcoKim/AWS-Study
 repo_name: ArcoKim/AWS-Study
 edit_uri: edit/main/docs/
@@ -68,6 +72,9 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
       emoji_index: !!python/name:material.extensions.emoji.twemoji
+
+plugins:
+  - rss
 
 copyright: |
   &copy; 2024 <a href="https://github.com/arcokim"  target="_blank" rel="noopener">Arco Kim</a>
