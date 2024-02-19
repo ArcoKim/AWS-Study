@@ -14,6 +14,5 @@ K9s is a terminal based UI to interact with your Kubernetes clusters. The aim of
 ``` bash
 curl --silent --location "https://github.com/derailed/k9s/releases/download/v0.31.5/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
 sudo cp /tmp/k9s /usr/local/bin
-sudo cp /tmp/k9s /usr/bin
 k9s version
 ```

@@ -1,4 +1,10 @@
 # Basic Tool & Connect
+## Subnet Tag
+|Subnet|Key|Value|
+|---|---|---|
+|Private|kubernetes.io/role/internal-elb|1|
+|Public|kubernetes.io/role/elb|1|
+
 ## Install AWS CLI V2
 ``` bash
 pip3 install awscli --upgrade

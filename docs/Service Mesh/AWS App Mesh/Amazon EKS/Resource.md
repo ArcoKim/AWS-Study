@@ -2,8 +2,8 @@
 ## Sidecar Injection
 ### Namespace
 ``` bash
-kubectl label namespace yelb mesh=yelb
-kubectl label namespace yelb appmesh.k8s.aws/sidecarInjectorWebhook=enabled
+kubectl label namespace wsi mesh=color
+kubectl label namespace wsi appmesh.k8s.aws/sidecarInjectorWebhook=enabled
 ```
 ### Deployment
 ``` yaml
@@ -17,85 +17,64 @@ spec:
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: Mesh
 metadata:
-  name: yelb
+  name: color
 spec:
   namespaceSelector:
     matchLabels:
-      mesh: yelb
+      mesh: color
 ```
 ## VirtualNode
 ``` yaml
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualNode
 metadata:
-  name: yelb-appserver
-  namespace: yelb
+  name: color-count
+  namespace: wsi
 spec:
-  awsName: yelb-appserver-virtual-node
+  awsName: color-count
   podSelector:
     matchLabels:
-      app: yelb-appserver
+      app: count
   listeners:
     - portMapping:
-        port: 4567
+        port: 4000
         protocol: http
   serviceDiscovery:
     dns:
-      hostname: yelb-appserver.yelb.svc.cluster.local
+      hostname: count.wsi.svc.cluster.local
   backends:
     - virtualService:
        virtualServiceRef:
-          name: yelb-db
+          name: color-server
     - virtualService:
        virtualServiceRef:
           name: redis-server
-```
-## BackendGroup
-``` yaml
-apiVersion: appmesh.k8s.aws/v1beta2
-kind: BackendGroup
-metadata:
-  name: yelb-group
-  namespace: yelb
-spec:
-  virtualservices:
-    - name: yelb-db
-      namespace: yelb
-    - name: redis-server
-      namespace: yelb
-```
-### VirtualNode Example
-``` yaml
-spec:
-  backendGroups:
-    - name: yelb-group
-      namespace: yelb
 ```
 ## VirtualRouter
 ``` yaml
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualRouter
 metadata:
-  namespace: yelb
-  name: yelb-appserver
+  name: color-router
+  namespace: wsi
 spec:
-  awsName: yelb-appserver-virtual-router
+  awsName: color-router
   listeners:
     - portMapping:
-        port: 4567
+        port: 80
         protocol: http
   routes:
-    - name: route-to-yelb-appserver
+    - name: route-to-color-node
       httpRoute:
         match:
           prefix: /
         action:
           weightedTargets:
             - virtualNodeRef:
-                name: yelb-appserver
+                name: blue
               weight: 1
             - virtualNodeRef:
-                name: yelb-appserver-v2
+                name: green
               weight: 1
         retryPolicy:
             maxRetries: 2
@@ -113,87 +92,86 @@ spec:
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualService
 metadata:
-  name: yelb-appserver
-  namespace: yelb
+  name: color-svc
+  namespace: wsi
 spec:
-  awsName: yelb-appserver
+  awsName: color-svc
   provider:
     virtualRouter:
         virtualRouterRef:
-            name: yelb-appserver
+            name: color-router
 ```
 ### To VirtualNode
 ``` yaml
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualService
 metadata:
-  name: yelb-ui
-  namespace: yelb
+  name: redis-server
+  namespace: wsi
 spec:
-  awsName: yelb-ui
+  awsName: redis-server
   provider:
     virtualNode:
       virtualNodeRef:
-        name: yelb-ui
+        name: redis
 ```
 ## VirtualGateway
 ``` bash
-kubectl label namespace yelb gateway=yelb-gateway
+kubectl label namespace wsi gateway=color
 ```
 ``` yaml
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualGateway
 metadata:
-  name: yelb-gateway
-  namespace: yelb
+  name: color-gateway
 spec:
   namespaceSelector:
     matchLabels:
-      gateway: yelb-gateway
+      gateway: color
   podSelector:
     matchLabels:
-      app: yelb-gateway
+      app: gateway
   listeners:
     - portMapping:
-        port: 8088
+        port: 80
         protocol: http
 ```
 ``` yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: yelb-gateway
-  namespace: yelb
+  name: color-gateway
+  namespace: wsi
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: yelb-gateway
+      app: gateway
   template:
     metadata:
       labels:
-        app: yelb-gateway
+        app: gateway
     spec:
       containers:
         - name: envoy
           image: public.ecr.aws/appmesh/aws-appmesh-envoy:v1.27.2.0-prod
           ports:
-            - containerPort: 8088
+            - containerPort: 80
 ```
 ## GatewayRoute
 ``` yaml
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: GatewayRoute
 metadata:
-  name: yelbapp-gatewayroute
-  namespace: yelb
+  name: color-gateway-route
+  namespace: wsi
 spec:
   httpRoute:
     match:
-      prefix: "/api"
+      prefix: "/"
     action:
       target:
         virtualService:
           virtualServiceRef:
-            name: yelb-appserver
+            name: color-ui
 ```

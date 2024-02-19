@@ -46,7 +46,7 @@ aws iam create-policy \
 ``` bash
 eksctl create iamserviceaccount \
     --cluster $CLUSTER_NAME \
-    --namespace yelb \
+    --namespace wsi \
     --name envoy-proxy \
     --attach-policy-arn arn:aws:iam::$AWS_ACCOUNT_ID:policy/AWSAppMeshEnvoyIAMPolicy  \
     --override-existing-serviceaccounts \

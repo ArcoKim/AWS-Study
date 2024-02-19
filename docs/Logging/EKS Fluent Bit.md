@@ -1,4 +1,4 @@
-# EKS Logging
+# EKS Fluent Bit
 ## Create ServiceAccount
 ### CloudWatch
 ``` json title="iam_policy.json"
