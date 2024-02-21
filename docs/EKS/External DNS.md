@@ -43,23 +43,24 @@ eksctl create iamserviceaccount \
   --attach-policy-arn $POLICY_ARN \
   --approve
 ```
-## (Optional) Set up a hosted zone
-``` bash
-aws route53 create-hosted-zone --name "example.com." \
-  --caller-reference "external-dns-test-$(date +%s)"
-
-ZONE_ID=$(aws route53 list-hosted-zones-by-name --output json \
-  --dns-name "example.com." --query HostedZones[0].Id --out text)
-
-aws route53 list-resource-record-sets --output text \
- --hosted-zone-id $ZONE_ID --query \
- "ResourceRecordSets[?Type == 'NS'].ResourceRecords[*].Value | []" | tr '\t' '\n'
-```
 ## Install with Helm
+``` yaml title="values.yaml"
+env:
+  - name: AWS_DEFAULT_REGION
+    value: ap-northeast-2
+```
 ``` bash
 helm repo add external-dns https://kubernetes-sigs.github.io/external-dns/
-helm upgrade --install external-dns external-dns/external-dns --version 1.14.3 \
+helm upgrade --install external-dns external-dns/external-dns -f values.yaml \
+    --version 1.14.3 \
     --namespace externaldns \
     --set serviceAccount.create=false \
     --set serviceAccount.name=external-dns
+```
+## Use Case
+### Ingress
+``` yaml
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: test.app.local
 ```

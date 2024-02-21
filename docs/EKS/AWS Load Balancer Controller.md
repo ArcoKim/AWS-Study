@@ -37,12 +37,14 @@ metadata:
   name: skills
   annotations:
     alb.ingress.kubernetes.io/load-balancer-name: skills-alb
+    alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=true,access_logs.s3.bucket=my-access-log-bucket,access_logs.s3.prefix=my-app
     alb.ingress.kubernetes.io/target-type: instance
-    alb.ingress.kubernetes.io/subnets: skills-public-a, skills-public-c
     alb.ingress.kubernetes.io/target-node-labels: node=app
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/security-groups: alb-sg
     alb.ingress.kubernetes.io/healthcheck-path: /health
+    alb.ingress.kubernetes.io/certificate-arn: $CERTIFICATE_ARN
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
     alb.ingress.kubernetes.io/actions.response-403: >
       {"type":"fixed-response","fixedResponseConfig":{"contentType":"text/plain","statusCode":"403","messageBody":"403 Forbidden"}}
 spec:
@@ -74,8 +76,10 @@ metadata:
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-name: skills-nlb
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
-    service.beta.kubernetes.io/aws-load-balancer-subnets: skills-public-a, skills-public-b
+    service.beta.kubernetes.io/aws-load-balancer-target-node-labels: node=app
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: $CERTIFICATE_ARN
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
 spec:
   type: LoadBalancer
   loadBalancerClass: service.k8s.aws/nlb
@@ -83,7 +87,7 @@ spec:
     app: skills
   ports:
     - protocol: TCP
-      port: 80
+      port: 443
       targetPort: 80
 ```
 ### TargetGroupBinding

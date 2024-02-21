@@ -95,7 +95,7 @@ metadata:
   name: color-svc
   namespace: wsi
 spec:
-  awsName: color-svc
+  awsName: color.wsi.svc.cluster.local
   provider:
     virtualRouter:
         virtualRouterRef:
@@ -109,7 +109,7 @@ metadata:
   name: redis-server
   namespace: wsi
 spec:
-  awsName: redis-server
+  awsName: redis.wsi.svc.cluster.local
   provider:
     virtualNode:
       virtualNodeRef:
