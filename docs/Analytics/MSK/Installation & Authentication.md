@@ -3,11 +3,19 @@
 ``` bash
 wget https://downloads.apache.org/kafka/3.6.0/kafka_2.12-3.6.0.tgz -O kafka.tgz
 tar zxvf kafka.tgz
-
+mv kafka_2.12-3.6.0 kafka
 echo 'PATH=$PATH:$HOME/kafka/bin' >> ~/.bash_profile
 . ~/.bash_profile
 
 kafka-topics.sh --version
+```
+## Install UI For Apache Kafka
+``` bash
+docker run -d \
+-p 8080:8080  \
+-v /home/ec2-user/environment/ui_for_apach_kafka:/etc/ui_for_apach_kafka  \
+-e DYNAMIC_CONFIG_ENABLED=true  \
+provectuslabs/kafka-ui
 ```
 ## IAM Authentication
 1. Set the MSK_BOOTSTRAP_ADDRESS variable.
