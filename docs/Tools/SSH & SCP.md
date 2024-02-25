@@ -10,6 +10,10 @@ echo 'Semye0ng2@23$$$' | passwd --stdin ec2-user
 ``` bash
 ssh ec2-user@13.125.158.16 -i skills-key.pem -p 22
 ```
+## SSH Tunneling Example
+``` bash
+ssh -L 8080:127.0.0.1:8080 ec2-user@43.202.41.246 -i key.pem
+```
 ## SCP Command Example
 ``` bash
 scp -r -P 4272 -i skills-key.pem stress ec2-user@13.125.158.16:/home/ec2-user/stress
