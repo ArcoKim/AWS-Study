@@ -128,3 +128,13 @@ spec:
           requests:
             storage: 10Gi
 ```
+## Kustomize
+``` yaml title="kustomization.yaml"
+resources:
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+  - hpa.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+```
