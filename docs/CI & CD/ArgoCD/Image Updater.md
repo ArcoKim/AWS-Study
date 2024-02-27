@@ -1,13 +1,4 @@
 # Image Updater
-## Create ServiceAccount
-``` bash
-eksctl create iamserviceaccount \
-    --cluster $CLUSTER_NAME \
-    --name argocd-image-updater \
-    --namespace argocd \
-    --attach-policy-arn arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly \
-    --approve
-```
 ## Helm Override Value
 ``` yaml title="values.yaml"
 config:
@@ -32,9 +23,6 @@ authScripts:
     auth1.sh: |
       #!/bin/sh
       aws ecr --region REGION_CODE get-authorization-token --output text --query 'authorizationData[].authorizationToken' | base64 -d
-serviceAccount:
-  create: false
-  name: argocd-image-updater
 ```
 ``` bash
 TOKEN=$(argocd account generate-token --account image-updater --id image-updater)

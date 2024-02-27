@@ -51,3 +51,12 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Release.Namespace }}
 ```
+### templates/deployment.yaml
+``` yaml
+spec:
+  template:
+    spec:
+      containers:
+      - name: nginx
+        image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+```

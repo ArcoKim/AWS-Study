@@ -27,6 +27,7 @@ spec:
       labels:
         app: skills
     spec:
+      terminationGracePeriodSeconds: 60
       nodeSelector:
         node: app
       tolerations:
