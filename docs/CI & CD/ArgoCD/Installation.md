@@ -2,15 +2,6 @@
 ## Helm
 ``` yaml title="values.yaml"
 configs:
-  cm:
-    accounts.image-updater: apiKey
-    timeout.reconciliation: 60s
-  rbac:
-    policy.csv: |
-      p, role:image-updater, applications, get, */*, allow
-      p, role:image-updater, applications, update, */*, allow
-      g, image-updater, role:image-updater
-    policy.default: role.readonly
   params:
     server.insecure: true
 ```

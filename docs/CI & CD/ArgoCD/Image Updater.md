@@ -4,10 +4,9 @@
 config:
   argocd:
     grpcWeb: true
-    serverAddress: "http://argocd.argocd-server"
+    serverAddress: "http://argocd-server.argocd"
     insecure: true
     plaintext: true
-    token: ARGOCD_TOKEN
   logLevel: debug
   registries:
     - name: ECR
