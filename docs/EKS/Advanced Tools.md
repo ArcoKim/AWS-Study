@@ -12,7 +12,8 @@ kubens -h
 ## K9s
 K9s is a terminal based UI to interact with your Kubernetes clusters. The aim of this project is to make it easier to navigate, observe and manage your deployed applications in the wild.
 ``` bash
-curl --silent --location "https://github.com/derailed/k9s/releases/download/v0.31.5/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
+K9S_LATEST=$(curl --silent "https://api.github.com/repos/derailed/k9s/tags" | jq -r '.[0].name')
+curl --silent --location "https://github.com/derailed/k9s/releases/download/${K9S_LATEST}/k9s_Linux_amd64.tar.gz" | tar xz -C /tmp
 sudo cp /tmp/k9s /usr/local/bin
 k9s version
 ```
