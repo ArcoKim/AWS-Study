@@ -79,7 +79,7 @@ yum install -y docker
 systemctl start docker
 systemctl enable docker
 usermod -a -G docker ec2-user
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.3/2023-11-14/bin/linux/amd64/kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.0/2024-01-04/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 kubectl completion bash | tee /etc/bash_completion.d/kubectl > /dev/null
