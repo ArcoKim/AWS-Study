@@ -19,13 +19,13 @@ vim fluent-bit.conf
     Name tail
     Path /home/ec2-user/app/app.log
     Tag i-005c3f6eec2ed4a8e
-    Parser logNoDate
+    Parser color-cw
 
 [INPUT]
     Name tail
     Path /home/ec2-user/app/app.log
     Tag kinesis
-    Parser logParser
+    Parser color-kd
 ```
 ### OUTPUT Example
 - CloudWatch
@@ -46,7 +46,7 @@ vim fluent-bit.conf
     region ap-northeast-2
     stream wsi-log
     time_key time
-    time_key_format %Y-%m-%d %H:%M:%S
+    time_key_format %Y-%m-%dT%H:%M:%S
 ```
 ## Write Parser File
 ``` bash
@@ -56,15 +56,15 @@ vim parsers.conf
 ``` bash
 # [2023-08-21 20:51:47,662] 127.0.0.1 - - GET /v1/color/red HTTP/1.1 200
 [PARSER]
-    Name logNoDate
+    Name color-cw
     Format regex
     Regex ^\[(?<time>[^\]]*)\] (?<host>[^ ]*) - - (?<method>[^ ]*) (?<path>[^ ]*) (?<HTTP>[^ ]*) (?<code>[^ ]*)
 
 [PARSER]
-    Name logParser
+    Name color-kd
     Format regex
     Regex ^\[(?<time>[^\]]*)\] (?<host>[^ ]*) - - (?<method>[^ ]*) (?<path>[^ ]*) (?<HTTP>[^ ]*) (?<code>[^ ]*)
     Time_Key time
-    Time_Format %Y-%m-%dT%H:%M:%S %z
+    Time_Format %Y-%m-%d %H:%M:%S,%L
     Time_Keep Off
 ```
