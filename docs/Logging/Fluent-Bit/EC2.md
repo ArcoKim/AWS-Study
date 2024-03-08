@@ -46,7 +46,7 @@ vim fluent-bit.conf
     region ap-northeast-2
     stream wsi-log
     time_key time
-    time_key_format %Y-%m-%dT%H:%M:%S
+    time_key_format %Y-%m-%d %H:%M:%S.%3N
 ```
 ## Write Parser File
 ``` bash
