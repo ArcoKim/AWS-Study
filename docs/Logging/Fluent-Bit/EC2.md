@@ -17,13 +17,13 @@ vim fluent-bit.conf
 ``` bash
 [INPUT]
     Name tail
-    Path /home/ec2-user/app/app.log
+    Path /app/app.log
     Tag i-005c3f6eec2ed4a8e
     Parser color-cw
 
 [INPUT]
     Name tail
-    Path /home/ec2-user/app/app.log
+    Path /app/app.log
     Tag kinesis
     Parser color-kd
 ```

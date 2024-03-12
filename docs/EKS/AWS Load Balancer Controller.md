@@ -78,6 +78,8 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
     service.beta.kubernetes.io/aws-load-balancer-target-node-labels: node=app
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: http
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /health
     service.beta.kubernetes.io/aws-load-balancer-ssl-cert: $CERTIFICATE_ARN
     service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
 spec:
