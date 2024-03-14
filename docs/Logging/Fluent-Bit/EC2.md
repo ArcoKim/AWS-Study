@@ -59,6 +59,7 @@ vim parsers.conf
     Name color-cw
     Format regex
     Regex ^\[(?<time>[^\]]*)\] (?<host>[^ ]*) - - (?<method>[^ ]*) (?<path>[^ ]*) (?<HTTP>[^ ]*) (?<code>[^ ]*)
+    Types code:integer
 
 [PARSER]
     Name color-kd
@@ -67,4 +68,5 @@ vim parsers.conf
     Time_Key time
     Time_Format %Y-%m-%d %H:%M:%S,%L
     Time_Keep Off
+    Types code:integer
 ```
