@@ -62,7 +62,7 @@ Please note that you need to set PARAMETER_ARN and KEY_ARN.
 ```
 ### Command
 ``` bash
-POLICY_ARN=$(aws --region "$AWS_DEFAULT_REGION" --query Policy.Arn --output text iam create-policy --policy-name eksdemo-secretsmanager-policy --policy-document file://iam_policy.json)
+POLICY_ARN=$(aws --region "$AWS_DEFAULT_REGION" --query Policy.Arn --output text iam create-policy --policy-name secretsmanager-policy --policy-document file://iam_policy.json)
 eksctl create iamserviceaccount --name access-secrets-sa --region="$AWS_DEFAULT_REGION" --cluster "$CLUSTER_NAME" --namespace=wsi --attach-policy-arn "$POLICY_ARN" --approve --override-existing-serviceaccounts
 ```
 ## SecretProviderClass
@@ -116,10 +116,10 @@ spec:
   volumes:
   - name: secrets-store-inline
     csi:
-       driver: secrets-store.csi.k8s.io
-       readOnly: true
-       volumeAttributes:
-         secretProviderClass: aws-secrets
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: aws-secrets
   containers:
   - image: public.ecr.aws/docker/library/busybox:1.36
     command:

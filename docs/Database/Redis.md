@@ -14,5 +14,11 @@ sudo install -m 755 src/redis-cli /usr/local/bin/
 ## Connect
 Please note that you need to set the ENDPOINT_URL variable.
 ``` bash
-redis-cli -h $ENDPOINT_URL --tls -p 6379
+redis-cli -h $ENDPOINT_URL --tls -p 6379 -c
+```
+## Usage
+``` bash
+set a "hello" EX 5
+get a
+del a
 ```

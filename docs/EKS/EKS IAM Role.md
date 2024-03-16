@@ -54,7 +54,7 @@ aws iam attach-role-policy \
   --role-name AmazonEKSNodeRole
 ```
 ## Fargate
-``` json
+``` json title="pod-execution-role-trust-policy.json"
 {
   "Version": "2012-10-17",
   "Statement": [
