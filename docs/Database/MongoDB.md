@@ -11,6 +11,11 @@ gpgkey=https://pgp.mongodb.com/server-7.0.asc
 ``` bash
 sudo yum install -y mongodb-mongosh-shared-openssl3
 ```
+## Connect
+Please note that you need to set the ENDPOINT_URL variable.
+``` bash
+mongosh --ssl --host $ENDPOINT_URL --sslCAFile global-bundle.pem --username mongo --password mongopass!
+```
 ## Database
 ``` bash
 use school

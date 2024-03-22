@@ -7,6 +7,6 @@ Resources:
       Properties:
         TaskDefinition: <TASK_DEFINITION>
         LoadBalancerInfo:
-          ContainerName: skills-app
+          ContainerName: wsi-app
           ContainerPort: 8080
 ```

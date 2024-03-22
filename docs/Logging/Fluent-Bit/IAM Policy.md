@@ -1,6 +1,6 @@
 # IAM Policy
-## CloudWatch
-``` json title="iam_policy.json"
+## CloudWatch Logs
+``` json
 {
 	"Version": "2012-10-17",
 	"Statement": [{
@@ -8,14 +8,16 @@
 		"Action": [
 			"logs:CreateLogStream",
 			"logs:CreateLogGroup",
-			"logs:PutLogEvents"
+			"logs:DescribeLogStreams",
+			"logs:PutLogEvents",
+            "logs:PutRetentionPolicy"
 		],
 		"Resource": "*"
 	}]
 }
 ```
 ## Kinesis Data Streams
-``` json title="iam_policy.json"
+``` json
 {
 	"Version": "2012-10-17",
 	"Statement": [{
@@ -27,8 +29,21 @@
 	}]
 }
 ```
-## Amazon OpenSearch Service
-``` json title="iam_policy.json"
+## Kinesis Data Firehose
+``` json
+{
+	"Version": "2012-10-17",
+	"Statement": [{
+		"Effect": "Allow",
+		"Action": [
+			"firehose:PutRecordBatch"
+		],
+		"Resource": "*"
+	}]
+}
+```
+## OpenSearch
+``` json
 {
 	"Version": "2012-10-17",
 	"Statement": [

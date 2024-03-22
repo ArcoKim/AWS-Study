@@ -8,7 +8,16 @@ metadata:
   labels:
     aws-observability: enabled
 ```
-## CloudWatch
+## Create Policy
+``` bash
+aws iam create-policy --policy-name eks-fargate-logging-policy --policy-document file://permissions.json
+
+aws iam attach-role-policy \
+  --policy-arn arn:aws:iam::$AWS_ACCOUNT_ID:policy/eks-fargate-logging-policy \
+  --role-name AmazonEKSFargatePodExecutionRole
+```
+## Resources
+### CloudWatch Logs
 ``` yaml
 kind: ConfigMap
 apiVersion: v1
@@ -47,7 +56,7 @@ data:
         Time_Key    time
         Time_Format %Y-%m-%dT%H:%M:%S.%L%z
 ```
-## Amazon OpenSearch Service
+### OpenSearch
 ``` yaml
 kind: ConfigMap
 apiVersion: v1
@@ -67,7 +76,7 @@ data:
       AWS_Region ap-northeast-2
       tls   On
 ```
-## Kinesis Data Firehose
+### Kinesis Data Firehose
 ``` yaml
 kind: ConfigMap
 apiVersion: v1
@@ -81,16 +90,4 @@ data:
      Match *
      region ap-northeast-2
      delivery_stream demo-firehose
-```
-## Create Policy
-- [CloudWatch](https://raw.githubusercontent.com/aws-samples/amazon-eks-fluent-logging-examples/mainline/examples/fargate/cloudwatchlogs/permissions.json)
-- [Amazon OpenSearch Service](https://raw.githubusercontent.com/aws-samples/amazon-eks-fluent-logging-examples/mainline/examples/fargate/amazon-elasticsearch/permissions.json)
-- [Kinesis Data Firehose](https://raw.githubusercontent.com/aws-samples/amazon-eks-fluent-logging-examples/mainline/examples/fargate/kinesis-firehose/permissions.json)
-
-``` bash
-aws iam create-policy --policy-name eks-fargate-logging-policy --policy-document file://permissions.json
-
-aws iam attach-role-policy \
-  --policy-arn arn:aws:iam::$AWS_ACCOUNT_ID:policy/eks-fargate-logging-policy \
-  --role-name AmazonEKSFargatePodExecutionRole
 ```

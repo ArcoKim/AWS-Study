@@ -67,10 +67,10 @@ spec:
     name: db-credentials
     creationPolicy: Owner
   data:
-  - secretKey: documentdb
+  - secretKey: mongodb
     remoteRef:
-      key: dbinfo
+      key: cred/mongodb
   - secretKey: redis
     remoteRef:
-      key: cacheinfo
+      key: cred/redis
 ```
