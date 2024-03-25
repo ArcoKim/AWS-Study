@@ -102,15 +102,14 @@ CMD ["java","-jar","./app.jar"]
 ```
 ### Multi
 ``` Dockerfile
-FROM public.ecr.aws/docker/library/amazoncorretto:17-alpine AS builder
+FROM public.ecr.aws/docker/library/gradle:jdk17-alpine AS builder
 
-WORKDIR /app
+WORKDIR /
 
-COPY gradlew *.gradle .
-COPY gradle gradle
+COPY *.gradle .
 COPY src src
 
-RUN ./gradlew clean build -x test
+RUN gradle clean build -x test --no-daemon
 
 FROM public.ecr.aws/docker/library/amazoncorretto:17-alpine
 
@@ -118,7 +117,7 @@ WORKDIR /app
 
 RUN apk --no-cache add curl
 
-COPY --from=builder /app/build/libs/*.jar app.jar
+COPY --from=builder /build/libs/*.jar app.jar
 
 RUN adduser -D app \
     && chown -R app:app /app \
