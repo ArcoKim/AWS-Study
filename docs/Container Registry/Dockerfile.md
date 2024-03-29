@@ -91,7 +91,7 @@ WORKDIR /app
 
 RUN apk --no-cache add curl
 
-COPY build/libs/*.jar app.jar
+COPY build/libs/*-SNAPSHOT.jar app.jar
 
 RUN adduser -D app \
     && chown -R app:app /app \

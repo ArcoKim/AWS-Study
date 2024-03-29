@@ -35,7 +35,7 @@ artifacts:
     - app.pyc
     - scripts/*
     - templates/*
-    - appspec.yml
+    - appspec.yaml
 
 cache:
   paths:

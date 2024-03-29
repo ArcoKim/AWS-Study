@@ -35,7 +35,7 @@ artifacts:
     - main
     - scripts/*
     - templates/*
-    - appspec.yml
+    - appspec.yaml
 
 cache:
   paths:

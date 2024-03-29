@@ -12,7 +12,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$REPOSITORY_NAME
-      - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin 073813292468.dkr.ecr.ap-northeast-2.amazonaws.com
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
@@ -50,7 +50,7 @@ phases:
 
 artifacts:
   files:
-    - appspec.yml
+    - appspec.yaml
     - taskdef.json
     - imageDetail.json
 ```
