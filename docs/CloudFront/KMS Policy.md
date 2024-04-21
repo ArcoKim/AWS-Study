@@ -1,4 +1,4 @@
-# CloudFront KMS Policy
+# KMS Policy
 ``` json
 {
     "Sid": "Allow users or roles to use KMS to CloudFront.",
