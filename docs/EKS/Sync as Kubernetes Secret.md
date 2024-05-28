@@ -4,6 +4,7 @@ Secrets Store CSI driver : Secrets Store CSI Driver for Kubernetes secrets - Int
 ``` yaml title="values.yaml"
 syncSecret:
   enabled: true
+enableSecretRotation: true
 ```
 ``` bash
 helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
