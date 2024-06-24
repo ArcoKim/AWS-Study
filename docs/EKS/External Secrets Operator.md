@@ -30,9 +30,10 @@ Please note that you need to set SECRET_ARN and KEY_ARN.
 }
 ```
 ### Command
+Please note that you need to set NAMESPACE.
 ``` bash
 POLICY_ARN=$(aws --region "$AWS_DEFAULT_REGION" --query Policy.Arn --output text iam create-policy --policy-name secretsmanager-policy --policy-document file://iam_policy.json)
-eksctl create iamserviceaccount --name access-secrets-sa --region="$AWS_DEFAULT_REGION" --cluster "$CLUSTER_NAME" --namespace=wsi --attach-policy-arn "$POLICY_ARN" --approve --override-existing-serviceaccounts
+eksctl create iamserviceaccount --name access-secrets-sa --cluster $CLUSTER_NAME --namespace $NAMESPACE --attach-policy-arn $POLICY_ARN --approve --override-existing-serviceaccounts
 ```
 ## SecretStore
 SecretStore is used to define the external secrets store and the authentication mechanisms to access the declared store.
@@ -57,20 +58,22 @@ ExternalSecret defines what data to fetch from the secret store defined in the S
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: db-credentials
+  name: db-secret
 spec:
   refreshInterval: 1h
   secretStoreRef:
     name: aws-secrets
     kind: SecretStore
   target:
-    name: db-credentials
+    name: db-secret
     creationPolicy: Owner
   data:
-  - secretKey: mongodb
+  - secretKey: username
     remoteRef:
-      key: cred/mongodb
-  - secretKey: redis
+      key: cred/mysql
+      property: username
+  - secretKey: password
     remoteRef:
-      key: cred/redis
+      key: cred/mysql
+      property: password
 ```
