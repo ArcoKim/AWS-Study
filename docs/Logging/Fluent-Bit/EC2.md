@@ -18,27 +18,17 @@ vim fluent-bit.conf
 [INPUT]
     Name tail
     Path /app/app.log
-    Tag i-005c3f6eec2ed4a8e
-    Parser color-cw
-
-[INPUT]
-    Name tail
-    Path /app/app.log
     Tag kinesis
     Parser color-kd
 ```
-### OUTPUT Example
-- CloudWatch
+### FILTER Example
 ``` bash
-[OUTPUT]
-    Name cloudwatch_logs
-    Match i-*
-    region ap-northeast-2
-    log_group_name wsi/app/accesslog
-    log_stream_prefix ec2_
-    auto_create_group On
+[FILTER]
+    name    grep
+    match   *
+    Exclude log /healthcheck
 ```
-- Kinesis Data Stream
+### OUTPUT Example
 ``` bash
 [OUTPUT]
     Name kinesis_streams
@@ -55,12 +45,6 @@ vim parsers.conf
 ```
 ``` bash
 # [2023-08-21 20:51:47,662] 127.0.0.1 - - GET /v1/color/red HTTP/1.1 200
-[PARSER]
-    Name color-cw
-    Format regex
-    Regex ^\[(?<time>[^\]]*)\] (?<host>[^ ]*) - - (?<method>[^ ]*) (?<path>[^ ]*) (?<HTTP>[^ ]*) (?<code>[^ ]*)
-    Types code:integer
-
 [PARSER]
     Name color-kd
     Format regex
