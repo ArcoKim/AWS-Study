@@ -1,5 +1,5 @@
 # EC2
-``` yaml title="appspec.yaml"
+``` yaml title="appspec.yml"
 version: 0.0
 os: linux
 files:
