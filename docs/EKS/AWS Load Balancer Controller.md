@@ -1,4 +1,10 @@
 # AWS Load Balancer Controller
+## Subnet Tag
+|Subnet|Key|Value|
+|---|---|---|
+|Private|kubernetes.io/role/internal-elb|1|
+|Public|kubernetes.io/role/elb|1|
+
 ## Create Policy
 ``` bash
 curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.7/docs/install/iam_policy.json
