@@ -2,6 +2,8 @@
 ## Helm
 ``` yaml title="values.yaml"
 configs:
+  cm:
+    timeout.reconciliation: 30s
   params:
     server.insecure: true
 ```

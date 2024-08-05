@@ -10,7 +10,7 @@ sudo mv ./calicoctl /usr/local/bin/calicoctl
 helm repo add projectcalico https://docs.tigera.io/calico/charts
 echo '{ installation: {kubernetesProvider: EKS }}' > values.yaml
 helm install calico projectcalico/tigera-operator \
-  --version v3.28.0 -f values.yaml \
+  --version v3.28.1 -f values.yaml \
   --namespace tigera-operator --create-namespace
 ```
 ## Permissions and environment variable settings
