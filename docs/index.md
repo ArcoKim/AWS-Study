@@ -1,2 +1,2 @@
-# Homepage
-Jeongtae Kim’s AWS Documentation
+# Home
+AWS Scripts and Resources Collection
