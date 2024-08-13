@@ -24,8 +24,8 @@ vim fluent-bit.conf
 ### FILTER Example
 ``` bash
 [FILTER]
-    name    grep
-    match   *
+    Name    grep
+    Match   *
     Exclude log /healthcheck
 ```
 ### OUTPUT Example
