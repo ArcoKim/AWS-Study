@@ -53,4 +53,13 @@ vim parsers.conf
     Time_Format %Y-%m-%d %H:%M:%S,%L
     Time_Keep Off
     Types code:integer
+
+# 127.0.0.1 - [14/Aug/2024:23:54:45 +0900] "GET /log HTTP/1.1" 200 "curl/7.54.1"
+[PARSER]
+    Name   logParser
+    Format regex
+    Regex  ^(?<clientip>[^ ]*) - \[(?<time>[^\]]*)\] "(?<method>[^ ]*) (?<path>[^ ]*) (?<protocol>[^"]*)" (?<responsecode>[^ ]*) "(?<useragent>[^"]*)"
+    Time_Key time
+    Time_Keep   On
+    Time_Format %d/%b/%Y:%H:%M:%S %z
 ```

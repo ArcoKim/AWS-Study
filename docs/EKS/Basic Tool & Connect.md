@@ -93,7 +93,7 @@ mv /tmp/eksctl /usr/local/bin
 ### Set frequently used environment variables
 ```bash
 echo "export CLUSTER_NAME=$(eksctl get clusters -o json | jq -r '.[0].Name')" >> ~/.bashrc
-echo "export AWS_DEFAULT_REGION=ap-northeast-2" >> ~/.bashrc
+echo "export AWS_DEFAULT_REGION=$(aws configure get region)" >> ~/.bashrc
 echo "export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)" >> ~/.bashrc
 source ~/.bashrc
 ```

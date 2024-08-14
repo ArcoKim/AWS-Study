@@ -21,21 +21,21 @@
 ### Inline Policy
 ``` json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "lambda:GetFunction",
-                "lambda:EnableReplication",
-                "iam:CreateServiceLinkedRole",
-                "cloudfront:UpdateDistribution",
-                "s3:GetObject",
-				"kms:Decrypt"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "lambda:GetFunction",
+        "lambda:EnableReplication",
+        "iam:CreateServiceLinkedRole",
+        "cloudfront:UpdateDistribution",
+        "s3:GetObject",
+        "kms:Decrypt"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
 ```
 ## Install

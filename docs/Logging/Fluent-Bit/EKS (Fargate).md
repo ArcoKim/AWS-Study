@@ -10,7 +10,7 @@ metadata:
 ```
 ## Create Policy
 ``` bash
-aws iam create-policy --policy-name eks-fargate-logging-policy --policy-document file://permissions.json
+aws iam create-policy --policy-name eks-fargate-logging-policy --policy-document file://iam_policy.json
 
 aws iam attach-role-policy \
   --policy-arn arn:aws:iam::$AWS_ACCOUNT_ID:policy/eks-fargate-logging-policy \

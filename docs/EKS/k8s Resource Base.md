@@ -40,10 +40,10 @@ spec:
         image: nginx:1.14.2
         resources:
           requests:
-            cpu: 500m
+            cpu: 250m
             memory: 512Mi
           limits:
-            cpu: 500m
+            cpu: 250m
             memory: 512Mi
         ports:
         - containerPort: 80
