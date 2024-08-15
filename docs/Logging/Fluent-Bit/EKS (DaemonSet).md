@@ -95,11 +95,9 @@ data:
 
   parsers.conf: |
     [PARSER]
-        Name                syslog
-        Format              regex
-        Regex               ^(?<time>[^ ]* {1,2}[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?(?:[^\:]*\:)? *(?<message>.*)$
-        Time_Key            time
-        Time_Format         %b %d %H:%M:%S
+        Name   app
+        Format regex
+        Regex  ^(?<year>[^-]*)-(?<month>[^-]*)-(?<day>[^ ]*) (?<hour>[^:]*):(?<minute>[^:]*):(?<second>[^,]*),[^ ]* - - (?<ip>[^ ]*) (?<port>[^ ]*) (?<method>[^ ]*) (?<path>[^ ]*) (?<statuscode>[^ ]*)
 ```
 ```bash
 kubectl apply -f configmap.yaml
