@@ -3,39 +3,35 @@
 ### Trust Policy
 ``` json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-          "edgelambda.amazonaws.com",
-          "lambda.amazonaws.com"
-        ]
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+  	"Version": "2012-10-17",
+  	"Statement": [{
+        "Effect": "Allow",
+        "Principal": {
+            "Service": [
+                "edgelambda.amazonaws.com",
+                "lambda.amazonaws.com"
+            ]
+        },
+        "Action": "sts:AssumeRole"
+	}]
 }
 ```
 ### Inline Policy
 ``` json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "lambda:GetFunction",
-        "lambda:EnableReplication",
-        "iam:CreateServiceLinkedRole",
-        "cloudfront:UpdateDistribution",
-        "s3:GetObject",
-        "kms:Decrypt"
-      ],
-      "Resource": "*"
-    }
-  ]
+	"Version": "2012-10-17",
+	"Statement": [{
+        "Effect": "Allow",
+        "Action": [
+            "lambda:GetFunction",
+            "lambda:EnableReplication",
+            "iam:CreateServiceLinkedRole",
+            "cloudfront:UpdateDistribution",
+            "s3:GetObject",
+            "kms:Decrypt"
+        ],
+        "Resource": "*"
+	}]
 }
 ```
 ## Install
@@ -46,55 +42,38 @@ npm install aws-sdk
 ```
 ## Function
 ``` javascript
-import querystring from 'querystring';
-import AWS from 'aws-sdk';
+import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import Sharp from 'sharp';
 
-const S3 = new AWS.S3({
-  region: 'ap-northeast-2'
-});
+const S3 = new S3Client({region: 'ap-northeast-2'});
+const BUCKET = 'wsi-static-arco';
 
-const BUCKET = 'wsi-static-coar';
-
-const supportImageTypes = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'tiff'];
+const supportImageTypes = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'avif', 'tiff'];
 
 export const handler = async(event, context, callback) => {
   const { request, response } = event.Records[0].cf;
-
   const { uri } = request;
-  
-  const ObjectKey = decodeURIComponent(uri).substring(1);
-  const params = querystring.parse(request.querystring);
-  const { w, h, q, f } = params;
 
-  /**
-   * ex) https://dilgv5hokpawv.cloudfront.net/dev/thumbnail.png?w=200&h=150&f=webp&q=90
-   * - ObjectKey: 'dev/thumbnail.png'
-   * - w: '200'
-   * - h: '150'
-   * - f: 'webp'
-   * - q: '90'
-   */
-  
-  if (!(w || h)) {
+  const ObjectKey = decodeURIComponent(uri).substring(1);
+  const params = new URLSearchParams(request.querystring);
+  let width = params.get('width');
+  let height = params.get('height');
+
+  if (!(width || height)) {
     return callback(null, response);
   }
 
   const extension = uri.match(/\/?(.*)\.(.*)/)[2].toLowerCase();
-  const width = parseInt(w, 10) || null;
-  const height = parseInt(h, 10) || null;
-  
-  let format = (f || extension).toLowerCase();
+  width = parseInt(width, 10) || null;
+  height = parseInt(height, 10) || null;
+
+  let format = extension.toLowerCase();
+  format = format === 'jpg' ? 'jpeg' : format;
+
   let s3Object;
   let resizedImage;
 
-  if (extension === 'gif' && !f) {
-    return callback(null, response);
-  }
-
-  format = format === 'jpg' ? 'jpeg' : format;
-
-  if (!supportImageTypes.some(type => type === extension )) {
+  if (!supportImageTypes.some(type => type === extension)) {
     responseHandler(
       403,
       'Forbidden',
@@ -107,18 +86,16 @@ export const handler = async(event, context, callback) => {
     return callback(null, response);
   }
 
-  console.log(`parmas: ${JSON.stringify(params)}`);
-  console.log('S3 Object key:', ObjectKey)
+  console.log(`width: ${width}, height: ${height}`);
+  console.log('S3 Object key:', ObjectKey);
 
   try {
-    s3Object = await S3.getObject({
+    const command = new GetObjectCommand({
       Bucket: BUCKET,
       Key: ObjectKey
-    }).promise();
-
-    console.log('S3 Object:', s3Object);
-  }
-  catch (error) {
+    });
+    s3Object = await S3.send(command);
+  } catch (error) {
     responseHandler(
       404,
       'Not Found',
@@ -128,12 +105,14 @@ export const handler = async(event, context, callback) => {
   }
 
   try {
-    resizedImage = await Sharp(s3Object.Body)
+    const imageBuffer = Buffer.concat(await s3Object.Body.toArray());
+
+    resizedImage = await Sharp(imageBuffer)
       .resize(width, height)
+      .toFormat(format)
       .withMetadata()
       .toBuffer();
-  }
-  catch (error) {
+  } catch (error) {
     responseHandler(
       500,
       'Internal Server Error',
@@ -144,10 +123,6 @@ export const handler = async(event, context, callback) => {
     );
     return callback(null, response);
   }
-  
-  if (Buffer.byteLength(resizedImage, 'base64') >= 1048576) {
-    return callback(null, response);
-  }
 
   responseHandler(
     200,
@@ -155,20 +130,27 @@ export const handler = async(event, context, callback) => {
     resizedImage.toString('base64'), [{
       key: 'Content-Type',
       value: `image/${format}`
+    },
+    {
+      key: 'Content-Length',
+      value: resizedImage.length.toString()
     }],
     'base64'
   );
 
-  function responseHandler(status, statusDescription, body, contentHeader, bodyEncoding) {
+  function responseHandler(status, statusDescription, body, headers, bodyEncoding) {
     response.status = status;
     response.statusDescription = statusDescription;
     response.body = body;
-    response.headers['content-type'] = contentHeader;
+    response.headers = headers.reduce((acc, header) => {
+      acc[header.key.toLowerCase()] = [{ key: header.key, value: header.value }];
+      return acc;
+    }, {});
     if (bodyEncoding) {
       response.bodyEncoding = bodyEncoding;
     }
   }
-  
+
   console.log('Success resizing image');
 
   return callback(null, response);

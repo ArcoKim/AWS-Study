@@ -8,6 +8,7 @@
 		"Action": [
 			"logs:CreateLogStream",
 			"logs:CreateLogGroup",
+			"logs:DescribeLogGroups",
 			"logs:DescribeLogStreams",
 			"logs:PutLogEvents",
             "logs:PutRetentionPolicy"
@@ -46,14 +47,12 @@
 ``` json
 {
 	"Version": "2012-10-17",
-	"Statement": [
-		{
-			"Effect": "Allow",
-			"Action": [
-			  "es:ESHttp*"
-			],
-			"Resource": "*"
-		}
-	]
+	"Statement": [{
+		"Effect": "Allow",
+		"Action": [
+			"es:ESHttp*"
+		],
+		"Resource": "*"
+	}]
 }
 ```
