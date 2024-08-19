@@ -38,7 +38,7 @@ Run helm to install karpenter.
 KARPENTER_IAM_ROLE_ARN="arn:aws:iam::${AWS_ACCOUNT_ID}:role/${CLUSTER_NAME}-karpenter"
 
 helm upgrade karpenter oci://public.ecr.aws/karpenter/karpenter \
-  --install --version ${KARPENTER_VERSION} --namespace karpenter --create-namespace \
+  --install --version 1.0.0 --namespace karpenter --create-namespace \
   --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=${KARPENTER_IAM_ROLE_ARN} \
   --set settings.clusterName=${CLUSTER_NAME} \
   --set settings.interruptionQueueName=${CLUSTER_NAME} \
@@ -78,6 +78,8 @@ spec:
         node: app
     spec:
       nodeClassRef:
+        group: karpenter.k8s.aws
+        kind: EC2NodeClass
         name: default
       taints:
         - key: node
@@ -102,9 +104,10 @@ spec:
 #       - key: node.kubernetes.io/instance-type
 #         operator: In
 #         values: ["t3.medium", "t3.large"]
+      expireAfter: 720h
   disruption:
-    consolidationPolicy: WhenUnderutilized
-    expireAfter: 720h
+    consolidationPolicy: WhenEmptyOrUnderutilized
+    consolidateAfter: 1m
   limits:
     cpu: 1000
 ```
@@ -115,6 +118,8 @@ metadata:
   name: default
 spec:
   amiFamily: Bottlerocket
+  amiSelectorTerms:
+    - id: "ami-02150f72c202ee9bb"
   role: "KarpenterNodeRole-${CLUSTER_NAME}"
   subnetSelectorTerms:
     - tags:
