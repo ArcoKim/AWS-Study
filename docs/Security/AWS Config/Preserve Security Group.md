@@ -3,20 +3,18 @@
 ### IAM Policy
 ```json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-      {
-          "Effect": "Allow",
-          "Action": [
-              "config:PutEvaluations",
-              "ec2:DescribeInstances",
-              "ec2:DescribeSecurityGroups",
-              "ec2:AuthorizeSecurityGroup*",
-              "ec2:RevokeSecurityGroup*"
-          ],
-          "Resource": "*"
-      }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Action": [
+            "config:PutEvaluations",
+            "ec2:DescribeInstances",
+            "ec2:DescribeSecurityGroups",
+            "ec2:AuthorizeSecurityGroup*",
+            "ec2:RevokeSecurityGroup*"
+        ],
+        "Resource": "*"
+    }]
 }
 ```
 

@@ -47,6 +47,7 @@ metadata:
     alb.ingress.kubernetes.io/target-type: instance
     alb.ingress.kubernetes.io/target-node-labels: node=app
     alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/security-groups: sg-xxxx
     alb.ingress.kubernetes.io/healthcheck-path: /health
     alb.ingress.kubernetes.io/certificate-arn: $CERTIFICATE_ARN
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'

@@ -2,16 +2,14 @@
 ## Cluster
 ``` json title="cluster-trust-policy.json"
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Principal": {
+            "Service": "eks.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+    }]
 }
 ```
 ``` bash
@@ -26,16 +24,14 @@ aws iam attach-role-policy \
 ## Node
 ``` json title="node-role-trust-relationship.json"
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "ec2.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Principal": {
+            "Service": "ec2.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+    }]
 } 
 ```
 ``` bash
@@ -56,21 +52,19 @@ aws iam attach-role-policy \
 ## Fargate
 ``` json title="pod-execution-role-trust-policy.json"
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Condition": {
-         "ArnLike": {
-            "aws:SourceArn": "arn:aws:eks:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:fargateprofile/$CLUSTER_NAME/*"
-         }
-      },
-      "Principal": {
-        "Service": "eks-fargate-pods.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Effect": "Allow",
+        "Condition": {
+            "ArnLike": {
+                "aws:SourceArn": "arn:aws:eks:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:fargateprofile/$CLUSTER_NAME/*"
+            }
+        },
+        "Principal": {
+            "Service": "eks-fargate-pods.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+    }]
 }
 ```
 ``` bash

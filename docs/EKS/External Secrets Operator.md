@@ -15,18 +15,16 @@ Please note that you need to set SECRET_ARN and KEY_ARN.
 ``` json title="iam_policy.json"
 {
     "Version": "2012-10-17",
-    "Statement": [
-      {
+    "Statement": [{
         "Effect": "Allow",
         "Action": ["secretsmanager:GetSecretValue", "secretsmanager:DescribeSecret"],
         "Resource": ["$SECRET_ARN"]
-      },
-      {
+    },
+    {
         "Effect": "Allow",
         "Action": ["kms:Decrypt"],
         "Resource": ["$KEY_ARN"]
-      }
-    ]
+    }]
 }
 ```
 ### Command
