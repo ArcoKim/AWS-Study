@@ -67,7 +67,7 @@ done
 ## Create NodePool
 A single Karpenter NodePool is capable of handling many different pod shapes. Karpenter makes scheduling and provisioning decisions based on pod attributes such as labels and affinity.
 ``` yaml title="nodepool.yaml"
-apiVersion: karpenter.sh/v1beta1
+apiVersion: karpenter.sh/v1
 kind: NodePool
 metadata:
   name: default
@@ -112,7 +112,7 @@ spec:
     cpu: 1000
 ```
 ``` yaml title="nodeclass.yaml"
-apiVersion: karpenter.k8s.aws/v1beta1
+apiVersion: karpenter.k8s.aws/v1
 kind: EC2NodeClass
 metadata:
   name: default
