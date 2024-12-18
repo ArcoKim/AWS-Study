@@ -7,8 +7,9 @@ Description=foo/bar service
 
 [Service]
 Type=simple
-ExecStart=/home/ec2-user/app/app
-WorkingDirectory=/home/ec2-user/app
+EnvironmentFile=/opt/foobar/.env
+ExecStart=/opt/foobar/app
+WorkingDirectory=/opt/foobar
 Restart=on-failure
 
 [Install]
@@ -24,7 +25,7 @@ Requires=network-online.target network.target
 [Service]
 KillMode=none
 ExecStart=/bin/true
-ExecStop=/home/ec2-user/scripts/terminate.sh
+ExecStop=/opt/scripts/terminate.sh
 RemainAfterExit=yes
 Type=oneshot
 

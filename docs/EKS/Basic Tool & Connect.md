@@ -15,45 +15,20 @@ usermod -a -G docker ec2-user
 ## Install Kubectl
 Kubectl is a command line tool for communicating with a Kubernetes cluster's control plane, using the Kubernetes API.
 ``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.30.0/2024-05-12/bin/linux/amd64/kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.31.2/2024-11-15/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 kubectl completion bash | tee /etc/bash_completion.d/kubectl > /dev/null
 ```
 
+- 1.30 Version
+``` bash
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.30.6/2024-11-15/bin/linux/amd64/kubectl
+```
+
 - 1.29 Version
 ``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.0/2024-01-04/bin/linux/amd64/kubectl
-```
-
-- 1.28 Version
-``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.3/2023-11-14/bin/linux/amd64/kubectl
-```
-
-- 1.27 Version
-``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.27.1/2023-04-19/bin/linux/amd64/kubectl
-```
-
-- 1.26 Version
-``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.26.4/2023-05-11/bin/linux/amd64/kubectl
-```
-
-- 1.25 Version
-``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.25.9/2023-05-11/bin/linux/amd64/kubectl
-```
-
-- 1.24 Version
-``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.24.13/2023-05-11/bin/linux/amd64/kubectl
-```
-
-- 1.23 Version
-``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.23.17/2023-05-11/bin/linux/amd64/kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.10/2024-11-15/bin/linux/amd64/kubectl
 ```
 
 ## Install Helm
@@ -79,7 +54,7 @@ yum install -y docker
 systemctl start docker
 systemctl enable docker
 usermod -a -G docker ec2-user
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.30.0/2024-05-12/bin/linux/amd64/kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.31.2/2024-11-15/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 kubectl completion bash | tee /etc/bash_completion.d/kubectl > /dev/null
