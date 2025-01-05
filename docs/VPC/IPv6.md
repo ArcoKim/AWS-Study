@@ -67,19 +67,21 @@
 
 |Destination|Target|
 |---|---|
-|0.0.0.0/0|skills-nat-a|
 |::/0|skills-eigw|
-|10.0.0.0/16|local|
+|64:ff9b::/96|skills-nat-a|
 |2406:da12:f67:3800::/56|local|
+|0.0.0.0/0|skills-nat-a|
+|10.0.0.0/16|local|
 
 - private-c
 
 |Destination|Target|
 |---|---|
-|0.0.0.0/0|skills-nat-c|
 |::/0|skills-eigw|
-|10.0.0.0/16|local|
+|64:ff9b::/96|skills-nat-c|
 |2406:da12:f67:3800::/56|local|
+|0.0.0.0/0|skills-nat-c|
+|10.0.0.0/16|local|
 
 ### Protected
 <table>
