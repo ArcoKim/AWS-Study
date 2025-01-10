@@ -11,6 +11,8 @@ EnvironmentFile=/opt/foobar/.env
 ExecStart=/opt/foobar/app
 WorkingDirectory=/opt/foobar
 Restart=on-failure
+StandardOutput=file:/var/log/foobar.log
+StandardError=file:/var/log/foobar.log
 
 [Install]
 WantedBy=multi-user.target
