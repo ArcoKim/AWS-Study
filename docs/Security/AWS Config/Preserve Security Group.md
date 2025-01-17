@@ -1,6 +1,10 @@
 # Preserve Security Group
-## Function
-### IAM Policy
+## Add Permission
+``` bash 
+aws lambda add-permission --function-name preserve-ssh --action lambda:InvokeFunction --statement-id config --principal config.amazonaws.com
+```
+
+## IAM Policy
 ```json
 {
     "Version": "2012-10-17",
@@ -17,6 +21,8 @@
     }]
 }
 ```
+
+## Function
 
 ``` python
 import boto3

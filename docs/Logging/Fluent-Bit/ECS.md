@@ -1,6 +1,10 @@
 # ECS
 ## Config File Example
-``` bash
+``` bash title="extra.conf"
+[SERVICE]
+    log_level info
+    Parsers_File /fluent-bit/parsers/extra.conf
+
 [INPUT]
     Name              tail
     Tag               service-log
@@ -10,13 +14,15 @@
     Rotate_Wait       30
 
 [FILTER]
-    Name    grep
-    Match   service-log
-    Exclude log /healthcheck
+    Name parser
+    Match *
+    Key_Name log
+    Parser demo
 
 [FILTER]
-    Name  aws
-    Match service-log
+    Name    grep
+    Match   service-log
+    Exclude path /healthcheck
 
 [OUTPUT]
     Name              cloudwatch_logs
@@ -27,18 +33,32 @@
     auto_create_group true
     retry_limit       2
 ```
+
+``` bash title="parsers.conf"
+[PARSER]
+    Name        demo
+    Format      regex
+    Regex       ([^\s]+)\s(?<start_time>[^|]*)\s\|\s(?<status>[^ ]*)\s\|\s+(?<response_time>[^ ]*)\s\|\s+(?<client_ip>[^ ]*)\s\|\s(?<method>[^ ]*)\s+"(?<path>[^ ]*)"
+    Time_Key    time
+    Time_Format %Y/%m/%d - %H:%M:%S
+    Time_Keep   Off
+    Types       code:integer
+```
+
 ## Dockerfile
 ``` Dockerfile
 FROM public.ecr.aws/aws-observability/aws-for-fluent-bit:stable
-COPY product.conf /product.conf
+COPY extra.conf /fluent-bit/conf/extra.conf
+COPY parsers.conf /fluent-bit/parsers/extra.conf
 ```
+
 ## Task Definition
 ``` json
 "firelensConfiguration": {
     "type": "fluentbit",
     "options": {
         "config-file-type": "file",
-        "config-file-value": "/product.conf"
+        "config-file-value": "/fluent-bit/conf/extra.conf"
     }
 }
 ```
