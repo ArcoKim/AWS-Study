@@ -14,19 +14,23 @@
     Rotate_Wait       30
 
 [FILTER]
-    Name parser
-    Match *
-    Key_Name log
-    Parser demo
+    Name    grep
+    Match   *
+    Exclude log /healthcheck
 
 [FILTER]
-    Name    grep
-    Match   service-log
-    Exclude path /healthcheck
+    Name  aws
+    Match *
+
+[FILTER]
+    Name     parser
+    Match    *
+    Key_Name log
+    Parser   demo
 
 [OUTPUT]
     Name              cloudwatch_logs
-    Match             service-log
+    Match             *
     region            ap-northeast-2
     log_group_name    /wsi/webapp/product
     log_stream_name   $(ecs_task_id)
