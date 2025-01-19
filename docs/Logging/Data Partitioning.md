@@ -1,7 +1,7 @@
 # Data Partitioning
 
 ## Not Use Dynamic Partitioning
-year={timestamp:yyyy}/month={timestamp:MM}/day={timestamp:dd}/
+year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/
 
 ## partitionKeyFromQuery
 ### JQ Example

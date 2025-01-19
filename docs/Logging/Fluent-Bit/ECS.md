@@ -2,7 +2,7 @@
 ## Config File Example
 ``` bash title="extra.conf"
 [SERVICE]
-    log_level info
+    log_level    info
     Parsers_File /fluent-bit/parsers/extra.conf
 
 [INPUT]
@@ -42,11 +42,11 @@
 [PARSER]
     Name        demo
     Format      regex
-    Regex       ([^\s]+)\s(?<start_time>[^|]*)\s\|\s(?<status>[^ ]*)\s\|\s+(?<response_time>[^ ]*)\s\|\s+(?<client_ip>[^ ]*)\s\|\s(?<method>[^ ]*)\s+"(?<path>[^ ]*)"
+    Regex       ([^\s]+)\s(?<time>[^|]*)\s\|\s(?<status>[^ ]*)\s\|\s+(?<latency>[^ ]*)\s\|\s+(?<client_ip>[^ ]*)\s\|\s(?<method>[^ ]*)\s+"(?<path>[^ ]*)"
     Time_Key    time
     Time_Format %Y/%m/%d - %H:%M:%S
     Time_Keep   Off
-    Types       code:integer
+    Types       status:integer
 ```
 
 ## Dockerfile
