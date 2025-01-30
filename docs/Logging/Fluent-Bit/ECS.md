@@ -1,4 +1,10 @@
 # ECS
+## Environment Variables set by init tag
+```
+AWS_REGION / ECS_LAUNCH_TYPE / ECS_CLUSTER / ECS_FAMILY
+ECS_TASK_ARN / ECS_TASK_ID / ECS_REVISION / ECS_TASK_DEFINITION
+```
+
 ## Config File Example
 ``` bash title="extra.conf"
 [SERVICE]
@@ -17,10 +23,6 @@
     Name    grep
     Match   *
     Exclude log /healthcheck
-
-[FILTER]
-    Name  aws
-    Match *
 
 [FILTER]
     Name     parser
@@ -51,7 +53,7 @@
 
 ## Dockerfile
 ``` Dockerfile
-FROM public.ecr.aws/aws-observability/aws-for-fluent-bit:stable
+FROM public.ecr.aws/aws-observability/aws-for-fluent-bit:init-latest
 COPY extra.conf /fluent-bit/conf/extra.conf
 COPY parsers.conf /fluent-bit/parsers/extra.conf
 ```
