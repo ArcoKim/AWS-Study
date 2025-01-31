@@ -4,6 +4,7 @@ Just-in-time Nodes for Any Kubernetes Cluster
 Use CloudFormation to set up the infrastructure needed by the EKS cluster. 
 ``` bash
 KARPENTER_VERSION=$(curl -sL "https://api.github.com/repos/aws/karpenter/releases/latest" | jq -r ".tag_name")
+AMI_ID=$(aws ssm get-parameter --name /aws/service/bottlerocket/aws-k8s-1.31/x86_64/latest/image_id --query "Parameter.Value" --output text)
 TEMPOUT=$(mktemp)
 
 curl -fsSL https://raw.githubusercontent.com/aws/karpenter/"${KARPENTER_VERSION}"/website/content/en/preview/getting-started/getting-started-with-karpenter/cloudformation.yaml  > $TEMPOUT \
@@ -119,7 +120,7 @@ metadata:
 spec:
   amiFamily: Bottlerocket
   amiSelectorTerms:
-    - id: "ami-02150f72c202ee9bb"
+    - id: ${AMI_ID}
   role: "KarpenterNodeRole-${CLUSTER_NAME}"
   subnetSelectorTerms:
     - tags:
