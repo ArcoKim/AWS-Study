@@ -4,7 +4,7 @@ Reloader can watch changes in ConfigMap and Secret and do rolling upgrades on Po
 ## Install
 ``` bash
 helm repo add stakater https://stakater.github.io/stakater-charts
-helm install reloader stakater/reloader --version 1.0.121 --namespace reloader --create-namespace
+helm install reloader stakater/reloader --namespace reloader --create-namespace
 ```
 
 ## Usage

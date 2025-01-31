@@ -38,7 +38,7 @@ Run helm to install karpenter.
 KARPENTER_IAM_ROLE_ARN="arn:aws:iam::${AWS_ACCOUNT_ID}:role/${CLUSTER_NAME}-karpenter"
 
 helm upgrade karpenter oci://public.ecr.aws/karpenter/karpenter \
-  --install --version 1.0.0 --namespace karpenter --create-namespace \
+  --install --version ${KARPENTER_VERSION:1} --namespace karpenter --create-namespace \
   --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=${KARPENTER_IAM_ROLE_ARN} \
   --set settings.clusterName=${CLUSTER_NAME} \
   --set settings.interruptionQueueName=${CLUSTER_NAME} \
