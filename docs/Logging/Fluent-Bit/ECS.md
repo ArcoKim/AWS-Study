@@ -35,7 +35,7 @@ ECS_TASK_ARN / ECS_TASK_ID / ECS_REVISION / ECS_TASK_DEFINITION
     Match             *
     region            ap-northeast-2
     log_group_name    /wsi/webapp/product
-    log_stream_name   $(ecs_task_id)
+    log_stream_name   ${ECS_TASK_ID}
     auto_create_group true
     retry_limit       2
 ```
