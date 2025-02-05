@@ -24,9 +24,6 @@ authScripts:
       aws ecr --region REGION_CODE get-authorization-token --output text --query 'authorizationData[].authorizationToken' | base64 -d
 ```
 ``` bash
-TOKEN=$(argocd account generate-token --account image-updater --id image-updater)
-
-sed -i "s|ARGOCD_TOKEN|$TOKEN|g" values.yaml
 sed -i "s|ACCOUNT_ID|$AWS_ACCOUNT_ID|g" values.yaml
 sed -i "s|REGION_CODE|$AWS_DEFAULT_REGION|g" values.yaml
 ```
@@ -37,10 +34,10 @@ helm install argocd-image-updater argo/argocd-image-updater \
     --values values.yaml
 ```
 ## Annotation Example
-- semver: update to highest allowed version according to given image constraint,
-- latest: update to the most recently created image tag,
-- name: update to the last tag in an alphabetically sorted list
-- digest: update to the most recent pushed version of a mutable tag
+- semver : update to highest allowed version according to given image constraint,
+- newest-build : update to the most recently created image tag,
+- alphabetical : update to the last tag in an alphabetically sorted list
+- digest : update to the most recent pushed version of a mutable tag
 
 ``` yaml
 argocd-image-updater.argoproj.io/image-list: org/app=<IMAGE_REPOSITORY_URL>/<IMAGE_REPOSITORY_NAME>
