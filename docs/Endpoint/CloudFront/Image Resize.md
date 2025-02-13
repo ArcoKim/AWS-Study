@@ -38,7 +38,7 @@
 ``` bash
 npm init -y
 npm install sharp
-npm install aws-sdk
+npm install @aws-sdk/client-s3
 ```
 ## Function
 ``` javascript
