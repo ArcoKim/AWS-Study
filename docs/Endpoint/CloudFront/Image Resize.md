@@ -20,18 +20,21 @@
 ``` json
 {
 	"Version": "2012-10-17",
-	"Statement": [{
-        "Effect": "Allow",
-        "Action": [
-            "lambda:GetFunction",
-            "lambda:EnableReplication",
-            "iam:CreateServiceLinkedRole",
-            "cloudfront:UpdateDistribution",
-            "s3:GetObject",
-            "kms:Decrypt"
-        ],
-        "Resource": "*"
-	}]
+	"Statement": [
+		{
+			"Effect": "Allow",
+			"Action": [
+				"lambda:GetFunction",
+				"lambda:EnableReplication*",
+				"lambda:DisableReplication*",
+				"iam:CreateServiceLinkedRole",
+				"cloudfront:UpdateDistribution",
+				"s3:GetObject",
+				"kms:Decrypt"
+			],
+			"Resource": "*"
+		}
+	]
 }
 ```
 ## Install
