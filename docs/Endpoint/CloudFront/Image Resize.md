@@ -40,7 +40,7 @@
 ## Install
 ``` bash
 npm init -y
-npm install sharp
+npm install --cpu=x64 --os=linux sharp
 npm install @aws-sdk/client-s3
 ```
 ## Function
