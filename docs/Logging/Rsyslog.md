@@ -17,3 +17,9 @@ systemctl enable rsyslog
 |/var/log/lastlog|A file (binary) in which the last information of each user who connected using telnet or ssh is recorded - lastlog command|
 |/var/log/wtmp|Log (binary) including records of users connected using console, telnet, ftp, etc., records of system reboots, etc. - last command|
 |/var/log/btmp|A log opposite to wtmp that records connection failures (binary) - lastb command|
+
+### /var/log/secure
+- SSH Connect Pattern
+```
+%Accepted|Failed%
+```

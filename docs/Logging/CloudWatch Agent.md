@@ -35,5 +35,6 @@ yum install -y amazon-cloudwatch-agent
 ```
 ## Start
 ``` bash
-amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+mv /opt/aws/amazon-cloudwatch-agent/bin/config.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+systemctl restart amazon-cloudwatch-agent
 ```
