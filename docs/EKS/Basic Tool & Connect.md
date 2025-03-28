@@ -54,7 +54,6 @@ Please note that the HOME path must be set to /home/ec2-user.
 ``` bash
 #!/bin/bash
 yum update -y
-pip3 install awscli --upgrade
 yum install -y docker
 systemctl start docker
 systemctl enable docker

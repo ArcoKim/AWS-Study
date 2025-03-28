@@ -34,6 +34,30 @@ Type=oneshot
 [Install]
 WantedBy=multi-user.target
 ```
+
+## Timer
+``` bash title="interval.service"
+[Unit]
+Description=my_interval service
+
+[Service]
+Type=oneshot
+ExecStart=/opt/scripts/interval.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+``` bash title="interval.timer"
+[Unit]
+Description=my_interval timer
+
+[Timer]
+OnCalendar=minutely
+
+[Install]
+WantedBy=timers.target
+```
+
 ## Start Daemon
 ``` bash
 systemctl daemon-reload
