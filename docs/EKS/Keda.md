@@ -66,6 +66,7 @@ spec:
 ```
 
 ## Deployment Example
+https://github.com/aws-solutions-library-samples/guidance-for-event-driven-application-auto-scaling-with-keda-on-amazon-eks/tree/main/scaledobject-samples/amazonsqs/sample-app
 ``` yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -100,4 +101,10 @@ spec:
           value: "10000"
         - name: LOG_LEVEL
           value: INFO
+```
+
+## SQS Test
+Please note that you need to set the QUEUE_URL variable.
+``` bash
+for i in `seq 500`; do aws sqs send-message --queue-url ${QUEUE_URL} --message-body "XXXX" --no-cli-pager --output text; done
 ```
