@@ -30,7 +30,8 @@ fuser -k 8080/tcp && echo "Stop Server" || echo "Not Running"
 ``` yaml title="install.sh"
 #!/bin/bash
 cd /home/ec2-user
-/root/.local/bin/pip install -r requirements.txt
+yum install -y python3-pip
+pip install -r requirements.txt
 ```
 ### Start
 - Python
