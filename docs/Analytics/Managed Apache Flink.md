@@ -14,7 +14,7 @@ CREATE TABLE demo_table (
 PARTITIONED BY (id)
 WITH (
     'connector' = 'kinesis',
-    'stream' = 'demo-stream',
+    'stream' = 'input-stream',
     'aws.region' = 'ap-northeast-2',
     'scan.stream.initpos' = 'LATEST',
     'format' = 'json',
@@ -23,10 +23,10 @@ WITH (
 ```
 ### CREATE TABLE - Sink
 ``` sql
-%flink.ssql(type=update)
+%flink.ssql
 CREATE TABLE output_table (
     level VARCHAR(5),
-    counts INTEGER,
+    counts BIGINT,
     hop_time TIMESTAMP(3)
 )
 WITH (
