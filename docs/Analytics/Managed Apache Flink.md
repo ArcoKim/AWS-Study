@@ -3,12 +3,12 @@
 ### CREATE TABLE - Source
 ``` sql
 %flink.ssql
-CREATE TABLE demo_table (
+CREATE TABLE input_table (
     id INTEGER,
     level VARCHAR(5),
     path VARCHAR(13),
     status INTEGER,
-    event_time TIMESTAMP(3),
+    event_time TIMESTAMP(0),
     WATERMARK FOR event_time AS event_time - INTERVAL '5' SECOND
 )
 PARTITIONED BY (id)
@@ -26,8 +26,9 @@ WITH (
 %flink.ssql
 CREATE TABLE output_table (
     level VARCHAR(5),
-    counts BIGINT,
-    hop_time TIMESTAMP(3)
+    window_start TIMESTAMP,
+    window_end TIMESTAMP,
+    counts BIGINT
 )
 WITH (
     'connector' = 'kinesis',
@@ -38,13 +39,37 @@ WITH (
     'json.timestamp-format.standard' = 'ISO-8601'
 );
 ```
-### INSERT & SELECT
+### TUMBLE
 ``` sql
-%flink.ssql(type=update)
+%flink.ssql
+INSERT INTO output_table
+SELECT level, window_start, window_end, count(*) AS counts
+FROM TABLE(TUMBLE(TABLE input_table, DESCRIPTOR(event_time), INTERVAL '20' SECONDS))
+GROUP BY level, window_start, window_end;
+```
+### HOP
+``` sql
+%flink.ssql
+INSERT INTO output_table
+SELECT level, window_start, window_end, count(*) AS counts
+FROM TABLE(HOP(TABLE input_table, DESCRIPTOR(event_time), INTERVAL '10' SECONDS, INTERVAL '30' SECONDS))
+GROUP BY level, window_start, window_end;
+```
+### CUMULATE
+``` sql
+%flink.ssql
+INSERT INTO output_table
+SELECT level, window_start, window_end, count(*) AS counts
+FROM TABLE(CUMULATE(TABLE input_table, DESCRIPTOR(event_time), INTERVAL '20' SECONDS, INTERVAL '1' MINUTE))
+GROUP BY level, window_start, window_end;
+```
+### SESSION
+``` sql
 INSERT INTO output_table
 SELECT level,
-       COUNT(*) AS counts,
-       HOP_ROWTIME(event_time, INTERVAL '10' second, INTERVAL '1' minute) AS hop_time
-FROM demo_table
-GROUP BY HOP(event_time, INTERVAL '10' second, INTERVAL '1' minute), level;
+    SESSION_START(event_time, INTERVAL '30' SECONDS) AS window_start,
+    SESSION_ROWTIME(event_time, INTERVAL '30' SECONDS) AS window_end,
+    COUNT(*) AS counts
+FROM input_table
+GROUP BY level, SESSION(event_time, INTERVAL '30' SECONDS);
 ```
