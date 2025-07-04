@@ -18,3 +18,11 @@ ssh -L 8080:127.0.0.1:8080 ec2-user@43.202.41.246 -i key.pem
 ``` bash
 scp -r -P 4272 -i skills-key.pem stress ec2-user@13.125.158.16:/home/ec2-user/stress
 ```
+## VSCode Config
+```
+Host Bastion
+  HostName <PUBLIC_IP>
+  User ec2-user
+  Port 22
+  IdentityFile <KEY_PATH>
+```
