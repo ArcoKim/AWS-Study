@@ -15,25 +15,30 @@ usermod -a -G docker ec2-user
 ## Install Kubectl
 Kubectl is a command line tool for communicating with a Kubernetes cluster's control plane, using the Kubernetes API.
 ``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.32.0/2024-12-20/bin/linux/amd64/kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.33.0/2025-05-01/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 kubectl completion bash | tee /etc/bash_completion.d/kubectl > /dev/null
 ```
 
+- 1.32 Version
+``` bash
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.32.3/2025-04-17/bin/linux/amd64/kubectl
+```
+
 - 1.31 Version
 ``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.31.2/2024-11-15/bin/linux/amd64/kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.31.7/2025-04-17/bin/linux/amd64/kubectl
 ```
 
 - 1.30 Version
 ``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.30.6/2024-11-15/bin/linux/amd64/kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.30.11/2025-04-17/bin/linux/amd64/kubectl
 ```
 
 - 1.29 Version
 ``` bash
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.10/2024-11-15/bin/linux/amd64/kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.29.15/2025-04-17/bin/linux/amd64/kubectl
 ```
 
 ## Install Helm
@@ -58,7 +63,7 @@ yum install -y docker
 systemctl start docker
 systemctl enable docker
 usermod -a -G docker ec2-user
-curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.32.0/2024-12-20/bin/linux/amd64/kubectl
+curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.33.0/2025-05-01/bin/linux/amd64/kubectl
 chmod +x ./kubectl
 mv ./kubectl /usr/local/bin/kubectl
 kubectl completion bash | tee /etc/bash_completion.d/kubectl > /dev/null
