@@ -36,7 +36,7 @@ eksctl create iamserviceaccount --name access-secrets --cluster $CLUSTER_NAME --
 ## SecretStore
 SecretStore is used to define the external secrets store and the authentication mechanisms to access the declared store.
 ``` yaml
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: SecretStore
 metadata:
   name: aws-secrets
@@ -54,7 +54,7 @@ spec:
 ExternalSecret defines what data to fetch from the secret store defined in the SecretStore resource.
 ### data
 ``` yaml
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: db-secret
@@ -78,7 +78,7 @@ spec:
 ```
 ### dataFrom
 ``` yaml
-apiVersion: external-secrets.io/v1beta1
+apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
   name: db-secret
