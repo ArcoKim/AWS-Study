@@ -1,39 +1,40 @@
 # Cluster Autoscaler
 Cluster Autoscaler - a component that automatically adjusts the size of a Kubernetes Cluster so that all pods have a place to run and there are no unneeded nodes.
 ## Create IAM Policy
-``` json title="cluster-autoscaler-policy.json"
+``` json title="iam_policy.json"
 {
-    "Version": "2012-10-17",
-    "Statement": [{
-        "Effect": "Allow",
-        "Action": [
-            "autoscaling:DescribeAutoScalingGroups",
-            "autoscaling:DescribeAutoScalingInstances",
-            "autoscaling:DescribeLaunchConfigurations",
-            "autoscaling:DescribeScalingActivities",
-            "autoscaling:DescribeTags",
-            "ec2:DescribeInstanceTypes",
-            "ec2:DescribeLaunchTemplateVersions"
-        ],
-        "Resource": ["*"]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:DescribeAutoScalingGroups",
+        "autoscaling:DescribeAutoScalingInstances",
+        "autoscaling:DescribeLaunchConfigurations",
+        "autoscaling:DescribeScalingActivities",
+        "ec2:DescribeImages",
+        "ec2:DescribeInstanceTypes",
+        "ec2:DescribeLaunchTemplateVersions",
+        "ec2:GetInstanceTypesFromInstanceRequirements",
+        "eks:DescribeNodegroup"
+      ],
+      "Resource": ["*"]
     },
     {
-        "Effect": "Allow",
-        "Action": [
-            "autoscaling:SetDesiredCapacity",
-            "autoscaling:TerminateInstanceInAutoScalingGroup",
-            "ec2:DescribeImages",
-            "ec2:GetInstanceTypesFromInstanceRequirements",
-            "eks:DescribeNodegroup"
-        ],
-        "Resource": ["*"]
-    }]
+      "Effect": "Allow",
+      "Action": [
+        "autoscaling:SetDesiredCapacity",
+        "autoscaling:TerminateInstanceInAutoScalingGroup"
+      ],
+      "Resource": ["*"]
+    }
+  ]
 }
 ```
 ``` bash
 POLICY_ARN=$(aws iam create-policy \
     --policy-name AmazonEKSClusterAutoscalerPolicy \
-    --policy-document file://cluster-autoscaler-policy.json \
+    --policy-document file://iam_policy.json \
     --query 'Policy.Arn' \
     --output text
 )
