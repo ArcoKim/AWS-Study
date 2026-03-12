@@ -17,8 +17,6 @@ curl -fsSL https://raw.githubusercontent.com/aws/karpenter/"${KARPENTER_VERSION}
 ## IAM Setting
 Create a Kubernetes service account and AWS IAM Role, and associate them using IRSA to let Karpenter launch instances.
 ``` bash
-eksctl utils associate-iam-oidc-provider --cluster ${CLUSTER_NAME} --approve
-
 eksctl create iamidentitymapping \
   --username system:node:{{EC2PrivateDNSName}} \
   --cluster "${CLUSTER_NAME}" \

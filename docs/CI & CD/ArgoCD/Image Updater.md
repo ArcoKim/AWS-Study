@@ -33,15 +33,26 @@ helm install argocd-image-updater argo/argocd-image-updater \
     --namespace argocd \
     --values values.yaml
 ```
-## Annotation Example
+## ImageUpdater Example
 - semver : update to highest allowed version according to given image constraint,
 - newest-build : update to the most recently created image tag,
 - alphabetical : update to the last tag in an alphabetically sorted list
 - digest : update to the most recent pushed version of a mutable tag
 
 ``` yaml
-argocd-image-updater.argoproj.io/image-list: org/app=<IMAGE_REPOSITORY_URL>/<IMAGE_REPOSITORY_NAME>
-argocd-image-updater.argoproj.io/org_app.allow-tags: any
-argocd-image-updater.argoproj.io/org_app.pull-secret: ext:/scripts/auth1.sh
-argocd-image-updater.argoproj.io/org_app.update-strategy: semver
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: product-updater
+spec:
+  namespace: argocd
+  applicationRefs:
+    - namePattern: "product"
+      images:
+        - alias: "org-app"
+          imageName: "073813292468.dkr.ecr.ap-northeast-2.amazonaws.com/product"
+          commonUpdateSettings:
+            updateStrategy: "newest-build"
+            allowTags: "any"
+            pullSecret: "ext:/scripts/auth1.sh"
 ```

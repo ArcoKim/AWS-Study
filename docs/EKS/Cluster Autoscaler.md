@@ -41,8 +41,6 @@ POLICY_ARN=$(aws iam create-policy \
 ```
 ## Create ServiceAccount
 ``` bash
-eksctl utils associate-iam-oidc-provider --cluster=$CLUSTER_NAME --approve
-
 eksctl create iamserviceaccount \
     --cluster=$CLUSTER_NAME \
     --namespace=kube-system \
